@@ -9,11 +9,63 @@
 import SpriteKit
 import GameplayKit
 
+extension SKScene{
+    
+    func GetMid()->CGPoint{
+        return CGPoint(x: self.frame.midX, y: self.frame.midY)
+    }
+    
+}
+
+
+
 class GameScene: SKScene {
+    
     
     private var label : SKLabelNode?
     private var spinnyNode : SKShapeNode?
+    private var mainButton : SKShapeNode?
+    let buttonRect = SKShapeNode(rect: CGRect(x: -150, y: -150, width: 300, height: 300))
     
+    let buttonSound = SKAction.playSoundFileNamed("CS_VocoBitB_Hit-02", waitForCompletion: false)
+    
+    
+    override func didMove(to view: SKView) {
+        buttonRect.position = GetMid()
+        buttonRect.fillColor = .red
+        buttonRect.lineWidth = 0
+        buttonRect.name = "mainButton"
+        self.addChild(buttonRect)
+        mainButton = self.children.first as? SKShapeNode
+        
+    }
+   
+    
+    func touchDown(atPoint pos : CGPoint) {
+        self.run(buttonSound)
+        
+        mainButton?.fillColor = .white
+       
+        
+    }
+    func touchUp(atPoint pos : CGPoint) {
+        mainButton?.fillColor = .red
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        
+        for t in touches { self.touchDown(atPoint: t.location(in: self)) }
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
+    }
+    
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
+    }
+    /*
     override func didMove(to view: SKView) {
         
         // Get label node from scene and store it for use later
@@ -82,7 +134,7 @@ class GameScene: SKScene {
         for t in touches { self.touchUp(atPoint: t.location(in: self)) }
     }
     
-    
+    */
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
     }

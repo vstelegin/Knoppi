@@ -7,17 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0606BDD720BE976300BF41A2 /* CS_VocoBitB_Hit-02.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0606BDD620BE976300BF41A2 /* CS_VocoBitB_Hit-02.wav */; };
 		06ECCDF020BE87450005C28C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06ECCDEF20BE87450005C28C /* AppDelegate.swift */; };
-		06ECCDF220BE87450005C28C /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 06ECCDF120BE87450005C28C /* GameScene.sks */; };
 		06ECCDF420BE87450005C28C /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 06ECCDF320BE87450005C28C /* Actions.sks */; };
 		06ECCDF620BE87450005C28C /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06ECCDF520BE87450005C28C /* GameScene.swift */; };
 		06ECCDF820BE87450005C28C /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06ECCDF720BE87450005C28C /* GameViewController.swift */; };
 		06ECCDFB20BE87450005C28C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 06ECCDF920BE87450005C28C /* Main.storyboard */; };
 		06ECCDFD20BE87470005C28C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 06ECCDFC20BE87470005C28C /* Assets.xcassets */; };
 		06ECCE0020BE87470005C28C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 06ECCDFE20BE87470005C28C /* LaunchScreen.storyboard */; };
+		06ECCE0720BE89B40005C28C /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 06ECCDF120BE87450005C28C /* GameScene.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0606BDD620BE976300BF41A2 /* CS_VocoBitB_Hit-02.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "CS_VocoBitB_Hit-02.wav"; sourceTree = "<group>"; };
 		06ECCDEC20BE87450005C28C /* Knoppi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Knoppi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		06ECCDEF20BE87450005C28C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		06ECCDF120BE87450005C28C /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -41,6 +43,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0606BDD520BE973C00BF41A2 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				0606BDD620BE976300BF41A2 /* CS_VocoBitB_Hit-02.wav */,
+			);
+			path = Audio;
+			sourceTree = "<group>";
+		};
 		06ECCDE320BE87450005C28C = {
 			isa = PBXGroup;
 			children = (
@@ -60,6 +70,7 @@
 		06ECCDEE20BE87450005C28C /* Knoppi */ = {
 			isa = PBXGroup;
 			children = (
+				0606BDD520BE973C00BF41A2 /* Audio */,
 				06ECCDEF20BE87450005C28C /* AppDelegate.swift */,
 				06ECCDF120BE87450005C28C /* GameScene.sks */,
 				06ECCDF320BE87450005C28C /* Actions.sks */,
@@ -131,8 +142,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0606BDD720BE976300BF41A2 /* CS_VocoBitB_Hit-02.wav in Resources */,
 				06ECCDFB20BE87450005C28C /* Main.storyboard in Resources */,
-				06ECCDF220BE87450005C28C /* GameScene.sks in Resources */,
+				06ECCE0720BE89B40005C28C /* GameScene.sks in Resources */,
 				06ECCDFD20BE87470005C28C /* Assets.xcassets in Resources */,
 				06ECCE0020BE87470005C28C /* LaunchScreen.storyboard in Resources */,
 				06ECCDF420BE87450005C28C /* Actions.sks in Resources */,
@@ -302,7 +314,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = s0w4.Knoppi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
 		};
@@ -320,7 +332,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = s0w4.Knoppi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
 		};
