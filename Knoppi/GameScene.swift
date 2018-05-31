@@ -39,7 +39,16 @@ class GameScene: SKScene {
         mainButton = self.children.first as? SKShapeNode
         
     }
-   
+    
+    public func scaleAction (up: Bool){
+        var actionName: String
+        if up {
+            actionName = "scaleUp"
+        } else {
+            actionName = "scaleDown"
+        }
+        mainButton?.run(SKAction.init(named: actionName)!)
+    }
     
     func touchDown(atPoint pos : CGPoint) {
         self.run(buttonSound)
@@ -51,7 +60,7 @@ class GameScene: SKScene {
     func touchUp(atPoint pos : CGPoint) {
         mainButton?.fillColor = .red
     }
-    
+
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         
@@ -65,6 +74,7 @@ class GameScene: SKScene {
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         for t in touches { self.touchUp(atPoint: t.location(in: self)) }
     }
+    
     /*
     override func didMove(to view: SKView) {
         
