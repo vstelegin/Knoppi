@@ -14,28 +14,34 @@ extension SKScene{
     func GetMid()->CGPoint{
         return CGPoint(x: self.frame.midX, y: self.frame.midY)
     }
-    
 }
-
-
 
 class GameScene: SKScene {
     
-    
+    private var touchCounter = 0
+    private var level = 1
     private var label : SKLabelNode?
     private var spinnyNode : SKShapeNode?
     private var mainButton : SKShapeNode?
     let buttonRect = SKShapeNode(rect: CGRect(x: -150, y: -150, width: 300, height: 300))
-    
     let buttonSound = SKAction.playSoundFileNamed("CS_VocoBitB_Hit-02", waitForCompletion: false)
     
     
     override func didMove(to view: SKView) {
-        buttonRect.position = GetMid()
+        let distance: CGFloat = 200
+        let center = GetMid()
+        let pointA = CGPoint(x: center.x, y: center.y + distance)
+        let pointB = CGPoint(x: center.x, y: center.y - distance)
+        buttonRect.position = pointA
         buttonRect.fillColor = .red
         buttonRect.lineWidth = 0
         buttonRect.name = "mainButton"
         self.addChild(buttonRect)
+
+        buttonRect.position = pointB
+        buttonRect.fillColor = .blue
+        self.addChild(buttonRect)
+        
         mainButton = self.children.first as? SKShapeNode
         
     }
@@ -52,9 +58,12 @@ class GameScene: SKScene {
     
     func touchDown(atPoint pos : CGPoint) {
         self.run(buttonSound)
+        if touchCounter > 14 {
+            
+        }
         
         mainButton?.fillColor = .white
-       
+        touchCounter += 1
         
     }
     func touchUp(atPoint pos : CGPoint) {
