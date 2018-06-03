@@ -21,7 +21,7 @@ class GameViewController: UIViewController {
             if let scene = SKScene(fileNamed: "GameScene") as! GameScene? {
                 // Set the scale mode to scale to fit the window
                 scene.scaleMode = .aspectFill
-                
+                scene.backgroundColor = .black
                 // Present the scene
                 view.presentScene(scene)
                 self.scene = scene
@@ -31,6 +31,7 @@ class GameViewController: UIViewController {
             
             view.showsFPS = false
             view.showsNodeCount = false
+        
         }
         
     }
