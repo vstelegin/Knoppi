@@ -24,7 +24,7 @@ class GameScene: SKScene {
     private var spinnyNode : SKShapeNode?
     private var mainButton : SKShapeNode?
     let buttonRect = SKShapeNode(rect: CGRect(x: -150, y: -150, width: 300, height: 300))
-    var buttonRect2 = SKShapeNode()
+    var buttonRect2 = SKShapeNode(rect: CGRect(x: -150, y: -150, width: 300, height: 300))
     let buttonSound = SKAction.playSoundFileNamed("CS_VocoBitB_Hit-02", waitForCompletion: false)
     
     
@@ -38,10 +38,9 @@ class GameScene: SKScene {
         buttonRect.lineWidth = 0
         buttonRect.name = "mainButton"
         self.addChild(buttonRect)
-        buttonRect2 = buttonRect
         buttonRect2.position = pointB
         buttonRect2.fillColor = .black
-        //self.addChild(buttonRect2)
+        self.addChild(buttonRect2)
         
         mainButton = self.children.first as? SKShapeNode
         
