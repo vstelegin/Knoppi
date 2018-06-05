@@ -58,11 +58,15 @@ class GameScene: SKScene {
     
     func touchDown(atPoint pos : CGPoint) {
         self.run(buttonSound)
+        var buttonColor : UIColor = .white
         if touchCounter > 14 {
-            
+            buttonColor = .green
+            touchCounter = 0
+        } else {
+            buttonColor = .white
         }
-        
-        mainButton?.fillColor = .white
+       
+        mainButton?.fillColor = buttonColor
         touchCounter += 1
         
     }
