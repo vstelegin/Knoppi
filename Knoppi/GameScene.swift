@@ -29,6 +29,7 @@ class GameScene: SKScene {
     
     
     override func didMove(to view: SKView) {
+        /*
         let distance: CGFloat = 200
         let center = GetMid()
         let pointA = CGPoint(x: center.x, y: center.y + distance)
@@ -42,6 +43,11 @@ class GameScene: SKScene {
         buttonRect2.fillColor = .black
         self.addChild(buttonRect2)
         
+        */
+        let center = GetMid()
+        let distance: CGFloat = 200
+        let pointA = CGPoint(x: center.x, y: center.y + distance)
+        self.addChild(createShapeNode(position: pointA, size: 150, name: "button01", color: .red))
         mainButton = self.children.first as? SKShapeNode
         
     }
@@ -54,6 +60,16 @@ class GameScene: SKScene {
             actionName = "scaleDown"
         }
         mainButton?.run(SKAction.init(named: actionName)!)
+    }
+    
+    func createShapeNode(position: CGPoint, size: CGFloat, name: String, color: SKColor) -> SKShapeNode {
+        //let center = GetMid()
+        let node = SKShapeNode(rect: CGRect(x: 0, y: 0, width: size, height: size))
+        node.position = position
+        node.fillColor = color
+        node.lineWidth = 0
+        return node
+        
     }
     
     func touchDown(atPoint pos : CGPoint) {
