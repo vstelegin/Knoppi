@@ -47,7 +47,9 @@ class GameScene: SKScene {
         let center = GetMid()
         let distance: CGFloat = 200
         let pointA = CGPoint(x: center.x, y: center.y + distance)
+        let pointB = CGPoint(x: center.x, y: center.y - distance)
         self.addChild(createShapeNode(position: pointA, size: 150, name: "button01", color: .red))
+        self.addChild(createShapeNode(position: pointB, size: 150, name: "button02", color: .blue))
         mainButton = self.children.first as? SKShapeNode
         
     }
@@ -64,7 +66,7 @@ class GameScene: SKScene {
     
     func createShapeNode(position: CGPoint, size: CGFloat, name: String, color: SKColor) -> SKShapeNode {
         //let center = GetMid()
-        let node = SKShapeNode(rect: CGRect(x: 0, y: 0, width: size, height: size))
+        let node = SKShapeNode(rect: CGRect(x: -size/2, y: -size/2, width: size, height: size))
         node.position = position
         node.fillColor = color
         node.lineWidth = 0
@@ -72,36 +74,51 @@ class GameScene: SKScene {
         
     }
     
-    func touchDown(atPoint pos : CGPoint) {
-        self.run(buttonSound)
-        var buttonColor : UIColor = .white
-        if touchCounter > 14 {
-            buttonColor = .green
-            touchCounter = 0
-        } else {
-            buttonColor = .white
+    func touchDown(touch: UITouch) {
+        let nodes = self.nodes(at: touch.location(in: self))
+        for node in nodes {
+            self.run(buttonSound)
+            var buttonColor : UIColor = .white
+            if touchCounter > 14 {
+                buttonColor = .green
+                touchCounter = 0
+            } else {
+                buttonColor = .white
+            }
+            if let buttonNode = node as? SKShapeNode {
+                buttonNode.fillColor = buttonColor
+            }
+            touchCounter += 1
         }
+        
        
-        mainButton?.fillColor = buttonColor
-        touchCounter += 1
         
     }
-    func touchUp(atPoint pos : CGPoint) {
-        mainButton?.fillColor = .red
+    func touchUp(touch: UITouch) {
+        //mainButton?.fillColor = .red
+        let nodes = self.nodes(at: touch.location(in: self))
+        for node in nodes {
+            if let buttonNode = node as? SKShapeNode {
+                buttonNode.fillColor = .red
+            }
+        }
+        
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-        
-        for t in touches { self.touchDown(atPoint: t.location(in: self)) }
+        for t in touches {
+            touchDown(touch: t)
+        }
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
+        for t in touches {
+            self.touchUp(touch: t)
+        }
     }
     
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
+        for t in touches { self.touchUp(touch: t) }
     }
     
     /*
