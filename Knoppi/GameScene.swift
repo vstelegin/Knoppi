@@ -46,10 +46,18 @@ class GameScene: SKScene {
         */
         let center = GetMid()
         let distance: CGFloat = 200
-        let pointA = CGPoint(x: center.x, y: center.y + distance)
-        let pointB = CGPoint(x: center.x, y: center.y - distance)
-        self.addChild(createShapeNode(position: pointA, size: 150, name: "button01", color: .red))
-        self.addChild(createShapeNode(position: pointB, size: 150, name: "button02", color: .blue))
+        //let pointA = CGPoint(x: center.x, y: center.y + distance)
+        //self.addChild(createShapeNode(position: pointA, size: 150, name: "button01", color: .red))
+        //self.addChild(createShapeNode(position: pointB, size: 150, name: "button02", color: .blue))
+        let maxPoint = (x: 3, y: 3)
+        for i in 1...maxPoint.x {
+            for j in 1...maxPoint.y {
+                let xOffset = CGFloat(i) * distance
+                let yOffset = CGFloat(j) * distance
+                let point = CGPoint(x: center.x - xOffset + CGFloat(maxPoint.x + 1) * distance/2, y: center.y - yOffset + CGFloat(maxPoint.y + 1) * distance/2)
+                self.addChild(createShapeNode(position: point, size: 150, name: "button01", color: .red))
+            }
+        }
         mainButton = self.children.first as? SKShapeNode
         
     }
@@ -61,7 +69,7 @@ class GameScene: SKScene {
         } else {
             actionName = "scaleDown"
         }
-        mainButton?.run(SKAction.init(named: actionName)!)
+        self.run(SKAction.init(named: actionName)!)
     }
     
     func createShapeNode(position: CGPoint, size: CGFloat, name: String, color: SKColor) -> SKShapeNode {
