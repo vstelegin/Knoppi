@@ -26,7 +26,7 @@ class GameScene: SKScene {
     let buttonRect = SKShapeNode(rect: CGRect(x: -150, y: -150, width: 300, height: 300))
     var buttonRect2 = SKShapeNode(rect: CGRect(x: -150, y: -150, width: 300, height: 300))
     let buttonSound = SKAction.playSoundFileNamed("CS_VocoBitB_Hit-02", waitForCompletion: false)
-    
+    var maxPoint = (x: 1, y: 1)
     
     override func didMove(to view: SKView) {
         /*
@@ -44,12 +44,21 @@ class GameScene: SKScene {
         self.addChild(buttonRect2)
         
         */
-        let center = GetMid()
-        let distance: CGFloat = 200
+        
         //let pointA = CGPoint(x: center.x, y: center.y + distance)
         //self.addChild(createShapeNode(position: pointA, size: 150, name: "button01", color: .red))
         //self.addChild(createShapeNode(position: pointB, size: 150, name: "button02", color: .blue))
-        let maxPoint = (x: 3, y: 3)
+        //let maxPoint = (x: 3, y: 3)
+        updateButtons()
+        
+    }
+    
+    func updateButtons(){
+        for child in self.children{
+            child.removeFromParent()
+        }
+        let center = GetMid()
+        let distance: CGFloat = 200
         for i in 1...maxPoint.x {
             for j in 1...maxPoint.y {
                 let xOffset = CGFloat(i) * distance
@@ -59,9 +68,7 @@ class GameScene: SKScene {
             }
         }
         mainButton = self.children.first as? SKShapeNode
-        
     }
-    
     public func scaleAction (up: Bool){
         var actionName: String
         if up {
@@ -89,7 +96,10 @@ class GameScene: SKScene {
             var buttonColor : UIColor = .white
             if touchCounter > 14 {
                 buttonColor = .green
+                maxPoint.x += 1
+                maxPoint.y += 1
                 touchCounter = 0
+                updateButtons()
             } else {
                 buttonColor = .white
             }
