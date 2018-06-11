@@ -19,7 +19,7 @@ class GameViewController: UIViewController {
         if let view = self.view as! SKView? {
             // Load the SKScene from 'GameScene.sks'
             if let scene = SKScene(fileNamed: "GameScene") as! GameScene? {
-                // Set the scale mode to scale to fit the window
+                // Set the scale mode to scale t7o fit the window
                 scene.scaleMode = .aspectFill
                 scene.backgroundColor = .black
                 // Present the scene
@@ -40,11 +40,13 @@ class GameViewController: UIViewController {
         print ("Orientation changed")
         let orientation = UIDevice.current.orientation
         if orientation.isPortrait{
-            self.scene?.scaleAction(up: false)
+            //self.scene?.scaleAction(up: false)
         }
         if orientation.isLandscape{
-            self.scene?.scaleAction(up: true)
+            //self.scene?.scaleAction(up: true)
         }
+        self.scene!.xScale = CGFloat(0.5)
+        self.scene!.yScale = CGFloat(0.5)
     }
 
     

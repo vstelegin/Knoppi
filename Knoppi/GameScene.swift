@@ -107,9 +107,8 @@ class GameScene: SKScene {
                 buttonNode.fillColor = buttonColor
             }
             touchCounter += 1
+            
         }
-        
-       
         
     }
     func touchUp(touch: UITouch) {
