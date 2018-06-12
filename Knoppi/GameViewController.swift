@@ -10,6 +10,21 @@ import UIKit
 import SpriteKit
 import GameplayKit
 
+extension CGFloat {
+    static var random: CGFloat {
+        return CGFloat(arc4random()) / CGFloat(UInt32.max)
+    }
+}
+extension UIColor {
+    static func randomColor () -> UIColor {
+        return UIColor(
+            red: CGFloat.random,
+            green: CGFloat.random,
+            blue: CGFloat.random,
+            alpha: 1.0)
+    }
+}
+
 class GameViewController: UIViewController {
     var scene: GameScene?
     override func viewDidLoad() {
