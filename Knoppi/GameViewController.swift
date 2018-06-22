@@ -17,11 +17,9 @@ extension CGFloat {
 }
 extension UIColor {
     static func randomColor () -> UIColor {
-        return UIColor(
-            red: CGFloat.random,
-            green: CGFloat.random,
-            blue: CGFloat.random,
-            alpha: 1.0)
+        let colors = [UIColor.blue, UIColor.red, UIColor.green, UIColor.magenta, UIColor.orange, UIColor.yellow]
+        let index = Int(arc4random_uniform(UInt32(colors.count)))
+        return colors[index]
     }
 }
 

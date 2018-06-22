@@ -58,13 +58,12 @@ class GameScene: SKScene {
             child.removeFromParent()
         }
         let center = GetMid()
-        let distance: CGFloat = 150
+        let distance: CGFloat = 300/CGFloat(maxPoint.x)
         for i in 1...maxPoint.x {
             for j in 1...maxPoint.y {
                 let xOffset = CGFloat(i) * distance
                 let yOffset = CGFloat(j) * distance
                 let point = CGPoint(x: center.x - xOffset + CGFloat(maxPoint.x + 1) * distance/2, y: center.y - yOffset + CGFloat(maxPoint.y + 1) * distance/2)
-                
                 self.addChild(createShapeNode(position: point, size: 150, name: "button01", color: .red))
             }
         }
@@ -87,6 +86,7 @@ class GameScene: SKScene {
         node.position = position
         node.fillColor = randomColor
         node.lineWidth = 0
+        
         if maxPoint.x > 1 {
             node.xScale = CGFloat(1.8/Float(maxPoint.x))
             node.yScale = CGFloat(1.8/Float(maxPoint.x))
@@ -100,7 +100,7 @@ class GameScene: SKScene {
         for node in nodes {
             self.run(buttonSound)
             var buttonColor : UIColor = .white
-            if touchCounter > 14 {
+            if touchCounter > 5 {
                 buttonColor = .green
                 if maxPoint.x == maxPoint.y{
                     maxPoint.x += 1
