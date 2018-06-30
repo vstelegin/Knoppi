@@ -2,6 +2,9 @@
 Simple button tap iOS game.
 Being developed for an iPad.
 
+![screenshot01](https://github.com/vstelegin/Knoppi/blob/assets/Knoppi_scr01.PNG?raw=true)
+![screenshot02](https://github.com/vstelegin/Knoppi/blob/assets/Knoppi_scr02.PNG?raw=true)
+
 ## Requirements
 **XCode 9**
 **Swift 4**
