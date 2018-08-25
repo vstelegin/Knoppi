@@ -26,7 +26,10 @@ class GameScene: SKScene {
     let buttonRect = SKShapeNode(rect: CGRect(x: -150, y: -150, width: 300, height: 300))
     var buttonRect2 = SKShapeNode(rect: CGRect(x: -150, y: -150, width: 300, height: 300))
     let buttonSound = SKAction.playSoundFileNamed("CS_VocoBitB_Hit-02", waitForCompletion: false)
+    let timeoutSound = SKAction.playSoundFileNamed("CS_VocoBitB_Hit-03", waitForCompletion: false)
     var maxPoint = (x: 1, y: 1)
+    var timeoutCounter = 0
+    
     
     override func didMove(to view: SKView) {
         /*
@@ -50,7 +53,23 @@ class GameScene: SKScene {
         //self.addChild(createShapeNode(position: pointB, size: 150, name: "button02", color: .blue))
         //let maxPoint = (x: 3, y: 3)
         updateButtons()
+        let _ = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(timeoutCheck), userInfo: nil, repeats: true)
+    }
+    
+    
+    @objc func timeoutCheck(){
+        timeoutCounter += 1
         
+        if timeoutCounter > 3 && maxPoint.x > 1{
+            if maxPoint.x == maxPoint.y{
+                maxPoint.y -= 1
+            }
+            else {
+                maxPoint.x -= 1
+            }
+            self.run(timeoutSound)
+            updateButtons()
+        }
     }
     
     func updateButtons(){
@@ -58,17 +77,19 @@ class GameScene: SKScene {
             child.removeFromParent()
         }
         let center = GetMid()
-        let distance: CGFloat = 300/CGFloat(maxPoint.x)
+        let distance: CGFloat = 600/CGFloat(maxPoint.x)
         for i in 1...maxPoint.x {
             for j in 1...maxPoint.y {
                 let xOffset = CGFloat(i) * distance
                 let yOffset = CGFloat(j) * distance
                 let point = CGPoint(x: center.x - xOffset + CGFloat(maxPoint.x + 1) * distance/2, y: center.y - yOffset + CGFloat(maxPoint.y + 1) * distance/2)
-                self.addChild(createShapeNode(position: point, size: 150, name: "button01", color: .red))
+                self.addChild(createShapeNode(position: point, size: 300, name: "button01", color: .red))
             }
         }
         mainButton = self.children.first as? SKShapeNode
+        
     }
+    
     public func scaleAction (up: Bool){
         var actionName: String
         if up {
@@ -116,6 +137,7 @@ class GameScene: SKScene {
                 buttonNode.fillColor = buttonColor
             }
             touchCounter += 1
+            timeoutCounter = 0
             
         }
         
