@@ -32,26 +32,7 @@ class GameScene: SKScene {
     
     
     override func didMove(to view: SKView) {
-        /*
-        let distance: CGFloat = 200
-        let center = GetMid()
-        let pointA = CGPoint(x: center.x, y: center.y + distance)
-        let pointB = CGPoint(x: center.x, y: center.y - distance)
-        buttonRect.position = pointA
-        buttonRect.fillColor = .red
-        buttonRect.lineWidth = 0
-        buttonRect.name = "mainButton"
-        self.addChild(buttonRect)
-        buttonRect2.position = pointB
-        buttonRect2.fillColor = .black
-        self.addChild(buttonRect2)
-        
-        */
-        
-        //let pointA = CGPoint(x: center.x, y: center.y + distance)
-        //self.addChild(createShapeNode(position: pointA, size: 150, name: "button01", color: .red))
-        //self.addChild(createShapeNode(position: pointB, size: 150, name: "button02", color: .blue))
-        //let maxPoint = (x: 3, y: 3)
+     
         updateButtons()
         let _ = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(timeoutCheck), userInfo: nil, repeats: true)
     }
@@ -60,7 +41,7 @@ class GameScene: SKScene {
     @objc func timeoutCheck(){
         timeoutCounter += 1
         
-        if timeoutCounter > 3 && maxPoint.x > 1{
+        if timeoutCounter > 2 && maxPoint.x > 1{
             if maxPoint.x == maxPoint.y{
                 maxPoint.y -= 1
             }
