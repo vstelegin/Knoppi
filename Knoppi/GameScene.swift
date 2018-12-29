@@ -27,13 +27,17 @@ class GameScene: SKScene {
     var buttonRect2 = SKShapeNode(rect: CGRect(x: -150, y: -150, width: 300, height: 300))
     let buttonSound = SKAction.playSoundFileNamed("CS_VocoBitB_Hit-02", waitForCompletion: false)
     let timeoutSound = SKAction.playSoundFileNamed("CS_VocoBitB_Hit-03", waitForCompletion: false)
+    let missedSound = SKAction.playSoundFileNamed("CS_VocoBitB_Hit-07", waitForCompletion: false)
+    let pulseIn = SKAction.scale(by: 1.15, duration: 0.05)
+    let pulseInSlow = SKAction.scale(by: 1.15, duration: 0.1)
+    let pulseOut = SKAction.scale(by: 0.87, duration: 0.2)
     var maxPoint = (x: 1, y: 1)
     var timeoutCounter = 0
-    
-    
+    var nonRedCounter = 0
+    var updated = false
     override func didMove(to view: SKView) {
      
-        updateButtons()
+        //updateButtons()
         let _ = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(timeoutCheck), userInfo: nil, repeats: true)
     }
     
@@ -41,19 +45,22 @@ class GameScene: SKScene {
     @objc func timeoutCheck(){
         timeoutCounter += 1
         
-        if timeoutCounter > 2 && maxPoint.x > 1{
+        if timeoutCounter > maxPoint.x && maxPoint.x > 1{
             if maxPoint.x == maxPoint.y{
                 maxPoint.y -= 1
             }
             else {
                 maxPoint.x -= 1
             }
+            timeoutCounter = 0
             self.run(timeoutSound)
             updateButtons()
         }
     }
     
-    func updateButtons(){
+    @objc func updateButtons(){
+        timeoutCounter = 0
+        print ("Update Called")
         for child in self.children{
             child.removeFromParent()
         }
@@ -64,10 +71,11 @@ class GameScene: SKScene {
                 let xOffset = CGFloat(i) * distance
                 let yOffset = CGFloat(j) * distance
                 let point = CGPoint(x: center.x - xOffset + CGFloat(maxPoint.x + 1) * distance/2, y: center.y - yOffset + CGFloat(maxPoint.y + 1) * distance/2)
-                self.addChild(createShapeNode(position: point, size: 300, name: "button01", color: .red))
+                self.addChild(createShapeNode(position: point, size: 300, name: "button01"))
             }
         }
         mainButton = self.children.first as? SKShapeNode
+        updated = true
         
     }
     
@@ -81,7 +89,7 @@ class GameScene: SKScene {
         self.run(SKAction.init(named: actionName)!)
     }
     
-    func createShapeNode(position: CGPoint, size: CGFloat, name: String, color: SKColor) -> SKShapeNode {
+    func createShapeNode(position: CGPoint, size: CGFloat, name: String) -> SKShapeNode {
         //let center = GetMid()
         let randomColor = UIColor.randomColor()
         let node = SKShapeNode(rect: CGRect(x: -size/2, y: -size/2, width: size, height: size))
@@ -98,38 +106,69 @@ class GameScene: SKScene {
     }
     
     func touchDown(touch: UITouch) {
-        let nodes = self.nodes(at: touch.location(in: self))
-        for node in nodes {
-            self.run(buttonSound)
-            var buttonColor : UIColor = .white
-            if touchCounter > 5 {
-                buttonColor = .green
-                if maxPoint.x == maxPoint.y{
-                    maxPoint.x += 1
-                } else {
-                    maxPoint.y += 1
-                }
-                touchCounter = 0
-                updateButtons()
-            } else {
-                buttonColor = .white
-            }
-            if let buttonNode = node as? SKShapeNode {
-                buttonNode.fillColor = buttonColor
-            }
-            touchCounter += 1
-            timeoutCounter = 0
+        let pressedNodes = self.nodes(at: touch.location(in: self))
+       
+        for pressedNode in pressedNodes {
             
+            if let buttonNode = pressedNode as? SKShapeNode
+            {
+                if buttonNode.fillColor != .red{
+                    self.run(buttonSound)
+                }
+                else
+                {
+                    self.run(missedSound)
+                }
+                    buttonNode.fillColor = UIColor.white
+                
+                    buttonNode.run(pulseIn) {
+                        buttonNode.run(self.pulseOut)
+                    }
+                
+            }
         }
+        
+        
+        
+
         
     }
     func touchUp(touch: UITouch) {
-        //mainButton?.fillColor = .red
-        let nodes = self.nodes(at: touch.location(in: self))
-        for node in nodes {
-            if let buttonNode = node as? SKShapeNode {
-                buttonNode.fillColor = .red
+
+        nonRedCounter = 0
+        let allButtons = self.scene?.children
+        for button in allButtons! {
+            if let buttonShape = button as? SKShapeNode {
+          
+                if buttonShape.fillColor == UIColor(red: 1, green: 1, blue: 1, alpha: 1) {
+        
+                    buttonShape.fillColor = .red
+                }
+                
+                if buttonShape.fillColor != .red {
+                    nonRedCounter += 1
+                }
+            
             }
+        }
+        if nonRedCounter == 0 && updated == true {
+            updated = false
+            if maxPoint.x == maxPoint.y
+            {
+                maxPoint.x += 1
+            }
+            else
+            {
+                maxPoint.y += 1
+            }
+            for button in allButtons!
+            {
+                button.run(pulseInSlow)
+            }
+            
+            let _ = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(updateButtons), userInfo: nil, repeats: false)
+            
+            
         }
         
     }

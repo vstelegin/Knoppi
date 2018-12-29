@@ -38,6 +38,7 @@ class GameViewController: UIViewController {
                 // Present the scene
                 view.presentScene(scene)
                 self.scene = scene
+                scene.updateButtons()
             }
             
             view.ignoresSiblingOrder = true
